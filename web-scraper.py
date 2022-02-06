@@ -28,15 +28,14 @@ def collectSoups(words, pages):
             url = 'http://vm154.lib.berkeley.edu:3001/searchcase/display?commit=Search&page='+str(j+1)+'&q='+words[i]+'&utf8=%E2%9C%93'
             page = requests.get(url)
             soup = BeautifulSoup(page.content, 'html.parser')
-            print('saving ' + 'soups/'+words[i]+'/'+str(j+1)+'.pkl')
-            Path("soups/"+words[i]).mkdir(parents=True, exist_ok=True)
-            pickle.dump(soup, open('soups/'+words[i]+'/'+str(j+1)+'.pkl', 'wb'))
+            pickle_array.append(soup)
+        print('saving ' + 'soups/'+words[i]+'.pkl')
+        # Path("soups/"+words[i]).mkdir(parents=True, exist_ok=True)
+        pickle.dump(soup, open('soups/'+words[i]+'.pkl', 'wb'))
 
 
 collectSoups(search_words, pages)
 
 
-# jair = pickle.load(open('soups/Der.pkl', 'rb'))
 
-# print(jair)
 
