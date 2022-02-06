@@ -29,13 +29,25 @@ def collectSoups(words, pages):
             page = requests.get(url)
             soup = BeautifulSoup(page.content, 'html.parser')
             pickle_array.append(soup)
-        print('saving ' + 'soups/'+words[i]+'.pkl')
+        print('saving ' + 'soups/names/'+words[i]+'.pkl')
         # Path("soups/"+words[i]).mkdir(parents=True, exist_ok=True)
-        pickle.dump(soup, open('soups/'+words[i]+'.pkl', 'wb'))
+        pickle.dump(pickle_array, open('soups/names/'+words[i]+'.pkl', 'wb'))
 
 
 collectSoups(search_words, pages)
 
 
+# pickle > Array > soups > table > link > url > soup 
+
+# I need to find the links and make an array out of it
 
 
+def soup_to_link(soup):
+    # all_words = pickle.load(open('soups/names/Chin.pkl', 'rb'))
+    # print(all_words)
+    return len(soup)
+
+
+# soup = pickle.load(open('soups/names/Chin.pkl', 'rb'))
+# print(soup)
+# print(soup_to_link(soup[1]))
