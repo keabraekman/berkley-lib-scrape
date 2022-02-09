@@ -80,17 +80,35 @@ def values_to_spreadsheet(attributes, values, row_n):
     wb.save('final_spreadsheet.xlsx')
 
 
+def first_empty_row():
+    wb = load_workbook(filename='final_spreadsheet.xlsx')
+    ws = wb.worksheets[0]
+    row_n = 2
+    cell = ws.cell(row = row_n, column = 1).value
+    cell2 = ws.cell(row = row_n, column = 2).value
+    cell4 = ws.cell(row = row_n, column = 4).value
+    while cell is not None or cell2 is not None or cell4 is not None:
+        row_n += 1
+        cell = ws.cell(row = row_n, column = 1).value
+        cell2 = ws.cell(row = row_n, column = 2).value
+        cell4 = ws.cell(row = row_n, column = 4).value
+    return row_n
 
 def add_everything_to_spreadsheet():
-    create_spreadsheet()
-    row = 2
+    # create_spreadsheet()
+    row = first_empty_row()
+    counter = 2
     for i in range(len(individual_pages)):
         for j in range(len(individual_pages[i])):
-            print('adding ', individual_names[i], ' row ', row)
-            attributes = single_individual(individual_pages[i][j])[0]
-            values = single_individual(individual_pages[i][j])[1]
-            values_to_spreadsheet(attributes, values, row)
-            row += 1
+            if counter > row:
+                print('adding ', individual_names[i], ' row ', row)
+                attributes = single_individual(individual_pages[i][j])[0]
+                values = single_individual(individual_pages[i][j])[1]
+                values_to_spreadsheet(attributes, values, row)
+                row += 1
+            else:
+                print('skipped ', counter)
+            counter += 1
 
 
 # html = single_individual(chin1[2])
